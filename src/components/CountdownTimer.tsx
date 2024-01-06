@@ -5,7 +5,8 @@ interface CountdownTimerProps {
   initialSeconds: number;
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({initialSeconds}) => {
+const CountdownTimer = () => {
+  const initialSeconds = 200;
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
