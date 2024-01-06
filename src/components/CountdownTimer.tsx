@@ -17,15 +17,37 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({initialSeconds}) => {
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures that the effect runs only once (on mount)
 
-  // Format seconds into minutes and seconds
+  // Format seconds into different formats based on the duration
   const formatTime = (totalSeconds: number) => {
-    const minutes = Math.floor(totalSeconds / 60);
-    const remainingSeconds = totalSeconds % 60;
+    if (totalSeconds >= 3600) {
+      // Display as 1D:HH:MM:SS if more than or equal to 1 hour
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const remainingSeconds = totalSeconds % 60;
 
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+      const formattedDays = days > 0 ? `${days}D:` : '';
+      const formattedHours =
+        hours > 0 ? `${String(hours).padStart(2, '0')}:` : '';
+      const formattedMinutes =
+        minutes > 0 ? `${String(minutes).padStart(2, '0')}:` : '';
+      const formattedSeconds = String(remainingSeconds).padStart(2, '0');
 
-    return `${formattedMinutes}:${formattedSeconds}`;
+      return `${formattedDays}${formattedHours}${formattedMinutes}${formattedSeconds}`;
+    } else if (totalSeconds >= 60) {
+      // Display as MM:SS if more than or equal to 1 minute
+      const minutes = Math.floor(totalSeconds / 60);
+      const remainingSeconds = totalSeconds % 60;
+
+      const formattedMinutes =
+        minutes > 0 ? `${String(minutes).padStart(2, '0')}:` : '';
+      const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+      return `${formattedMinutes}${formattedSeconds}`;
+    } else {
+      // Display as SS for less than 1 minute
+      return `${String(totalSeconds).padStart(2, '0')}`;
+    }
   };
 
   return (

@@ -2,10 +2,10 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import CountdownTimer from './CountdownTimer';
 
-const Main: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <View style={styles.container}>
-      <CountdownTimer initialSeconds={300} />{' '}
+      <CountdownTimer initialSeconds={40000} />
       {/* Set the initialSeconds as needed */}
     </View>
   );
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default Home;
