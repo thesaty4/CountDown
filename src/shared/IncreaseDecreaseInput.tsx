@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
   inputWrapper: {
     display: 'flex',
@@ -131,6 +132,7 @@ const styles = StyleSheet.create({
     // padding: 10,
     flex: 1,
     // marginLeft: 10,
+    color: 'black',
     textAlign: 'center',
   },
 });

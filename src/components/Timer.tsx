@@ -42,9 +42,7 @@ var Sound = require('react-native-sound');
 
 const Timer: React.FC<{isCountDown?: boolean}> = ({isCountDown}) => {
   const [elapsedSeconds, setElapsedSeconds] = useState(isCountDown ? 59 : 0);
-  const navigator = useNavigation();
   const [isFullView, setFullView] = useState(false);
-  const [buttonStatus, setButtonStatus] = useState(true);
   const [isClock, setClock] = useState(true);
   const [myActions, setActions] = useState(buttons);
   const [isRunning, setIsRunning] = useState(false);
@@ -187,8 +185,6 @@ const Timer: React.FC<{isCountDown?: boolean}> = ({isCountDown}) => {
                 break;
               case 3:
                 setClock(!isClock);
-                break;
-              case 4:
                 break;
             }
           }}
