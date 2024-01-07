@@ -5,24 +5,36 @@ import {
   StyleSheet,
   StatusBar,
   TouchableOpacity,
-  Image,
 } from 'react-native';
-import {homeStyles} from './Home';
-import {useNavigation} from '@react-navigation/native';
 import {routes} from '../constant/routing.const';
 import {icons} from '../assets/icons/all-icons';
+import ActionButtons, {ActionItems} from '../shared/ActionButtons';
 
 interface ClockProps {
   is24HourFormat: boolean; // true for 24-hour format, false for AM/PM format
 }
 
+const buttons: ActionItems[] = [
+  {
+    id: 1,
+    icon: icons.expand,
+  },
+  {
+    id: 3,
+    icon: icons.home,
+    redirectTo: routes.home.route,
+  },
+  {
+    id: 2,
+    icon: icons.time,
+    redirectTo: routes.timer.route,
+  },
+];
+
 const Clock = () => {
   const is24HourFormat = false;
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isFullView, setFullView] = useState(false);
-  const [buttonStatus, setButtonStatus] = useState(true);
-  const [direction, setDirection] = useState<number>(0);
-  const navigator = useNavigation();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -42,51 +54,32 @@ const Clock = () => {
   };
 
   return (
-    <View style={[styles.container]}>
+    <View style={[clockStyles.container]}>
       <StatusBar
         hidden={isFullView}
         backgroundColor="rgba(0, 0, 0, 0)"
         translucent
       />
-      <Text style={styles.timerText}>{formatTime(currentTime)}</Text>
-      {buttonStatus && (
-        <View style={[{gap: 20}, styles.mainAction]}>
-          <TouchableOpacity
-            style={[
-              homeStyles.button,
-              styles.actionWrapper,
-              {backgroundColor: 'skyblue'},
-            ]}
-            onPress={() => {
-              setFullView(!isFullView);
-            }}>
-            <Image source={icons.expand} style={styles.icon}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[homeStyles.button, styles.actionWrapper]}
-            onPress={() => {
-              setDirection((direction + 1) % 4);
-            }}>
-            <Image source={icons.rotate} style={styles.icon}></Image>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              homeStyles.button,
-              styles.actionWrapper,
-              {backgroundColor: 'skyblue'},
-            ]}
-            onPress={() => {
-              navigator.navigate(routes.home.route);
-            }}>
-            <Image source={icons.home} style={styles.icon}></Image>
-          </TouchableOpacity>
-        </View>
+      <TouchableOpacity onPress={() => setFullView(!isFullView)}>
+        <Text style={clockStyles.timerText}>{formatTime(currentTime)}</Text>
+      </TouchableOpacity>
+      {!isFullView && (
+        <ActionButtons
+          items={buttons}
+          onClick={item => {
+            switch (item.id) {
+              case 1:
+                setFullView(!isFullView);
+                break;
+            }
+          }}
+        />
       )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+export const clockStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -101,6 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     gap: 60,
     padding: 10,
+    position: 'absolute',
+    bottom: 0,
   },
   timerText: {
     fontSize: 48,

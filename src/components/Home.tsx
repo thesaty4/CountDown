@@ -21,9 +21,18 @@ const Home: React.FC = () => {
       <StatusBar backgroundColor="rgba(0, 0, 0, 0)" translucent />
       <View style={homeStyles.container}>
         <View>
-          <Text style={{fontSize: 20, color: 'white', fontWeight: '900'}}>
-            TRACK YOUR TIME
-          </Text>
+          <View>
+            <Text
+              style={[
+                homeStyles.headerText,
+                {
+                  fontSize: 50,
+                },
+              ]}>
+              Ticker<Text style={{color: 'orange'}}>Box</Text>
+            </Text>
+            <Text style={homeStyles.headerText}>TRACK YOUR TIME</Text>
+          </View>
         </View>
         <TouchableOpacity
           style={homeStyles.button}
@@ -54,9 +63,24 @@ const Home: React.FC = () => {
           <Text style={homeStyles.text}>Count Down</Text>
           <Image style={homeStyles.img} source={icons.countDown}></Image>
         </TouchableOpacity>
-        <Text style={{color: 'white', letterSpacing: 1}}>
+        <Text
+          style={[{color: 'white', letterSpacing: 1}, commonStyles.textShadow]}>
           Time never will back !
         </Text>
+        <View style={{position: 'absolute', bottom: 10}}>
+          <Text
+            style={[
+              {
+                color: 'white',
+                letterSpacing: 1,
+                fontSize: 10,
+                textAlign: 'center',
+              },
+              commonStyles.textShadow,
+            ]}>
+            &#169; 2024 by codecom, version 1.0.0
+          </Text>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -67,6 +91,15 @@ export const homeStyles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  headerText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: '900',
+    textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: 2, height: 1},
+    textShadowRadius: 5,
   },
   container: {
     flex: 1,
@@ -98,6 +131,14 @@ export const homeStyles = StyleSheet.create({
     textAlign: 'center',
     // marginRight: 50,
     flex: 1, // Take remaining space
+  },
+});
+
+export const commonStyles = StyleSheet.create({
+  textShadow: {
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: {width: 2, height: 1},
+    textShadowRadius: 5,
   },
 });
 
